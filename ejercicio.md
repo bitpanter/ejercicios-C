@@ -1,131 +1,67 @@
-# Ejercicio 1
+# Apuntes Operativos: C y Git
 
-- Hacer un programa que imprima la suma de los primeros 10 numeros. Del 1 al 10. En lo posible investigar el uso de FOR para esto.
+## Ejercicios de Programación C
 
-> El modulo es el simbolo %, -unario (-a) y -binario (a-b)
+### Ejercicio 1: Suma de Números
+* Hacer un programa en C que imprima la suma de los primeros 10 números (del 1 al 10).
+* **Nota:** Se recomienda usar el bucle `for`.
+> El símbolo `%` es el operador **módulo**.
 
-# Ejercicio 2
-
-- Hacer un programa que use todos los operadores aritmeticos +-\*/%()
+### Ejercicio 2: Uso de Operadores
+* Hacer un programa que utilice todos los operadores aritméticos: `+`, `-`, `*`, `/`, `%`, `()`.
 
 ---
 
-# Apunte
+## Estructura de Archivos C (Separación de Roles)
 
-## Archivos C: Roles
+* **`main.c`**: Contiene la función `main()`. Es el **punto de inicio**.
+* **`function.h`**: Contiene las **declaraciones** (prototipos) de las funciones. Es el **contrato**.
+* **`function.c`**: Contiene la **implementación** (lógica) de las funciones.
 
-- **`main.c`**: Contiene la función principal `main()`. Es el **punto de inicio** de la ejecución del programa.
+> **Flujo:** `main.c` incluye `function.h`, que está implementado en `function.c`.
 
-- **`function.h`**: Contiene solo las **declaraciones** (prototipos) de las funciones. Es el **contrato** para usar las funciones.
+---
 
-- **`function.c`**: Contiene la **implementación** (el código real) de las funciones declaradas. Es la **lógica** del programa.
+## Comandos Esenciales de Git (Clave)
 
-> Estructura: **main.c <--- function.h <---function.c**
+* **`git init`**: Inicializa un repositorio local.
+* **`git clone <url>`**: Descarga un repositorio remoto.
+* **`git add <archivo(s)>` / `git add .`**: Prepara cambios para el commit (staging).
+* **`git commit -m "mensaje"`**: Guarda los cambios preparados en el historial.
+* **`git push`**: Sube los commits locales al repositorio remoto.
+* **`git checkout <ref>`**: Cambia ramas o puntos del historial.
+* **`git branch <nombre>`**: Crea, lista o elimina ramas.
 
-# Ejercicio 3
+### Comprobaciones
+* **Email de usuario:** `git config --global user.email`
+* **Prueba SSH:** `ssh -T git@github.com`
 
-### Revisar los siguientes comandos en este orden de importancia
+---
 
-## Comandos Esenciales de Git
+## Configuración SSH para GitHub (Procedimiento Rápido)
 
-### Comandos Clave de Git (Ficha Rápida)
+1.  **Generar Clave:**
+    ```bash
+    ssh-keygen -t ed25519 -C "<tuemail@que.usas.en.github.com>"
+    ```
 
-- **`git init`**
+2.  **Iniciar Agente y Añadir Clave:**
+    ```bash
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_ed25519
+    ```
 
-  - **Propósito:** Inicializar un nuevo repositorio Git vacío en el directorio actual.
-  - **Ejemplo:** `git init`
+3.  **Copiar Clave Pública:** (Usar la opción que funcione en el sistema)
+    ```bash
+    cat ~/.ssh/id_ed25519.pub
+    # Copiar manualmente la salida.
+    ```
 
-- **`git clone <url>`**
+4.  **Acción Manual:**
+    * Pegar la clave copiada en: `https://github.com/settings/keys`
 
-  - **Propósito:** Descargar una copia local completa de un repositorio remoto existente.
-  - **Ejemplo:** `git clone https://github.com/usuario/proyecto.git`
-
-- **`git add <archivo(s)>`**
-
-  - **Propósito:** Preparar los cambios para el próximo commit (Área de Staging).
-  - **Ejemplo 1 (Archivo):** `git add index.html`
-  - **Ejemplo 2 (Todos):** `git add .`
-
-- **`git commit -m "mensaje"`**
-
-  - **Propósito:** Guardar la instantánea de los cambios preparados en el historial.
-  - **Ejemplo:** `git commit -m "Implementada la funcionalidad de login"`
-
-- **`git push`**
-
-  - **Propósito:** Subir los commits locales a la rama correspondiente en el repositorio remoto.
-  - **Ejemplo:** `git push origin main`
-
-- **`git checkout <rama/commit>`**
-
-  - **Propósito:** Cambiar el entorno de trabajo entre diferentes ramas o puntos del historial.
-  - **Ejemplo 1 (Cambiar rama):** `git checkout desarrollo`
-  - **Ejemplo 2 (Crear y cambiar):** `git checkout -b nueva-feature`
-
-- **`git branch <nombre>`**
-  - **Propósito:** Crear, listar o eliminar ramas de trabajo.
-  - **Ejemplo 1 (Crear):** `git branch correccion-bug-123`
-  - **Ejemplo 2 (Listar):** `git branch`
-
-# Para ver que cuenta de git estoy usando
-
-  ```git config --global user.email```
-
-# Para conectarme por ssh
-
-  ```ssh -T git@github.com```
-
-# =============================================
-
-# CONFIGURACIÓN SSH PARA GITHUB (todo en uno)
-
-# ================================
-
-# 1. Generar clave SSH nueva
-
-ssh-keygen -t ed25519 -C "<tuemail@que.usas.en.github.com>"
-
-# → Enter para ruta por defecto
-
-# → Enter + Enter si NO quieres passphrase (o pon una si quieres)
-
-# 2. Iniciar agente SSH
-
-eval "$(ssh-agent -s)"
-
-# 3. Añadir la clave al agente
-
-ssh-add ~/.ssh/id_ed25519
-
-# 4. Copiar clave pública al portapapeles (prueba en orden)
-
-cat ~/.ssh/id_ed25519.pub | wl-copy 2>/dev/null || \
-cat ~/.ssh/id_ed25519.pub | xclip -sel clip 2>/dev/null || \
-echo "=== COPIA ESTO MANUALMENTE ===" && cat ~/.ssh/id_ed25519.pub
-
-# 5. → Abre esto en el navegador y pega la clave
-
-echo "<https://github.com/settings/keys> → New SSH key → pega y guarda"
-
-# 6. Probar conexión (¡el momento de la verdad!)
-
-ssh -T <git@github.com>
-
-ssh-keygen -t ed25519 -C "<tuemail@que.usas.en.github.com>"
-
-# (Enter → Enter + Enter si no quieres passphrase)
-
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# Copia la clave pública (prueba en orden hasta que funcione)
-
-cat ~/.ssh/id_ed25519.pub | wl-copy 2>/dev/null || \
-cat ~/.ssh/id_ed25519.pub | xclip -sel clip 2>/dev/null || \
-cat ~/.ssh/id_ed25519.pub
-
-# → Ve a <https://github.com/settings/keys> → New SSH key → pega → Add
-
-ssh -T <git@github.com>
-
-# Si sale “Hi tuusuario!” → listo para siempre
+5.  **Verificación Final:**
+    ```bash
+    ssh -T git@github.com
+    # Si la respuesta es "Hi tuusuario!", la conexión es correcta.
+    ```
