@@ -10,8 +10,6 @@ int main()
 {
     int initial;
     int final;
-    int fixini;
-    int fixfin;
     int current;
 
     // Inputs:
@@ -24,12 +22,19 @@ int main()
     printf("Ingrese el final: ");
     checkInput(scanf("%d", &final), "final");
 
-    fixini = initial;
-    fixfin = final;
+    if (initial == 1)
+    {
+        initial = initial + 1;
+    }
 
     for (current = initial; current <= final; current++)
+    {
+
         if (isPrime(current))
+        {
             printf("%d es primo!\n", current);
+        }
+    }
 
     return 0;
 }
