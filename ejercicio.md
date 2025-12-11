@@ -65,3 +65,11 @@
     ssh -T git@github.com
     # Si la respuesta es "Hi tuusuario!", la conexión es correcta.
     ```
+
+Comandos basicos git:
+
+git status
+git add .
+git commit -m "Actualizacion"
+git push
+git status
